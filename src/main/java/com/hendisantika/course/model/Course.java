@@ -1,10 +1,21 @@
 package com.hendisantika.course.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
-import javax.persistence.*;
-
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)	
@@ -13,33 +24,11 @@ public class Course {
     @Column(name="coursename")
 	private String name; 
      
-	public Course() {
-	}
-
 	public Course(String name) {
 		this.name = name;
-	}     
-
-    public long getCourseid() {
-		return courseid;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}	
-    
-    @ManyToMany(mappedBy = "courses")    
+    @ManyToMany(mappedBy = "courses")
     private Set<Student> students;  
     
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }	
 }
