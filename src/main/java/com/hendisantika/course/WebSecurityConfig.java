@@ -10,28 +10,35 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	//	@Bean
+//	ServletRegistrationBean h2servletRegistration(){
+//		ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+//		registrationBean.addUrlMappings("/h2-console/**");
+//		return registrationBean;
+//	}
 	@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        
-    	http
-    		.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
-    			.and()
-            .authorizeRequests()
-                .antMatchers("/", "add", "delete/{id}", "save", "students", "/addStudentCourse/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/students")
-                .permitAll()
-            	.and()
-            .logout()
-            	.permitAll()
-            	.and()
-            .httpBasic()
-            	.and()
-            .csrf().disable(); //Disable CSRF
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http
+				.authorizeRequests().antMatchers("/css/**", "/h2-console/**").permitAll() // Enable css when logged out
+				.and()
+				.authorizeRequests()
+				.antMatchers("/", "add", "delete/{id}", "save", "students", "/addStudentCourse/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/students")
+				.permitAll()
+				.and()
+				.logout()
+				.permitAll()
+				.and()
+				.httpBasic()
+				.and()
+				.csrf().disable(); //Disable CSRF
+	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

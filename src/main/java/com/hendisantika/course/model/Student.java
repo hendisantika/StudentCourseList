@@ -30,7 +30,7 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "student_course", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns =
 			{@JoinColumn(name = "courseid")})
 
